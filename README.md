@@ -49,10 +49,10 @@ Follow these steps to run the project locally.
 
 **1. Clone the repository**
 
-Replace `YOUR-USERNAME` with your GitHub username.
+Replace `Patel-Het06` with your GitHub username.
 
 ``` bash
-git clone https://github.com/YOUR-USERNAME/react-investment-calculator.git
+git clone https://github.com/Patel-Het06/react-investment-calculator.git
 ```
 
 **2. Navigate to the project directory**
@@ -141,7 +141,7 @@ components, and custom styling.
 
 **Your Name**
 
--   GitHub: [@YOUR-USERNAME](https://github.com/YOUR-USERNAME)
+-   GitHub: [@Patel-Het06](https://github.com/Patel-Het06)
 
 ------------------------------------------------------------------------
 
