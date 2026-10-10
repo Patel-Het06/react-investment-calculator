@@ -1,0 +1,1148 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: radial-gradient(#303b37, #1a1f1d);
+  color: #e1eeeb;
+  min-height: 100vh;
+}
+
+#header {
+  text-align: center;
+  margin: 3rem auto;
+}
+
+
+#header img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+#header h1 {
+  font-size: 1.5rem;
+}
+
+#user-input {
+  padding: 1rem;
+  max-width: 30rem;
+  margin: 2rem auto;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #307e6c, #2b996d);
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+}
+
+#user-input label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 0.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#user-input input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #76c0ae;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  color: #c2e9e0;
+  font-size: 1rem;
+}
+
+#result {
+  max-width: 50rem;
+  margin: 2rem auto;
+  padding: 1rem;
+  table-layout: fixed;
+  border-spacing: 1rem;
+  text-align: right;
+}
+
+#result thead {
+  font-size: 0.7rem;
+  color: #83e6c0;
+}
+
+#result tbody {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 0.85rem;
+  color: #c2e9e0;
+}
+
+.center {
+  text-align: center;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;700&display=swap');
+
+
+/* =========================================================
+   TOKENS  (custom properties only - no new ids / classes)
+========================================================= */
+
+:root {
+  --gold: #e6c36a;
+  --emerald: #3fcf9b;
+  --ink: #07110e;
+
+  /* Cursor: thin gold ring + dot */
+  --cursor-main: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='9' fill='none' stroke='%23e6c36a' stroke-width='1.4' stroke-opacity='.85'/%3E%3Ccircle cx='14' cy='14' r='2.6' fill='%23e6c36a'/%3E%3C/svg%3E") 14 14;
+
+  /* Cursor on clickable things: emerald, slightly larger, softly filled */
+  --cursor-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='11' fill='%233fcf9b' fill-opacity='.14' stroke='%233fcf9b' stroke-width='1.4' stroke-opacity='.9'/%3E%3Ccircle cx='14' cy='14' r='2.6' fill='%233fcf9b'/%3E%3C/svg%3E") 14 14;
+
+  /* Rising growth line with a faint area under it */
+  --growth-line: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400' preserveAspectRatio='xMidYMax slice'%3E%3Crect x='10' y='362' width='26' height='38' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='38;49;38' dur='6.6s' begin='0.2s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='362;351;362' dur='6.6s' begin='0.2s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='60' y='330' width='26' height='70' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='70;98;70' dur='5.4s' begin='2.3s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='330;302;330' dur='5.4s' begin='2.3s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='110' y='350' width='26' height='50' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='50;57;50' dur='5.1s' begin='1.7s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='350;343;350' dur='5.1s' begin='1.7s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='160' y='378' width='26' height='22' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='22;60;22' dur='5.4s' begin='1.7s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='378;340;378' dur='5.4s' begin='1.7s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='210' y='330' width='26' height='70' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='70;45;70' dur='8.8s' begin='2.5s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='330;355;330' dur='8.8s' begin='2.5s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='260' y='345' width='26' height='55' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='55;37;55' dur='7.3s' begin='1.6s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='345;363;345' dur='7.3s' begin='1.6s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='310' y='368' width='26' height='32' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='32;35;32' dur='7.2s' begin='0.5s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='368;365;368' dur='7.2s' begin='0.5s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='360' y='356' width='26' height='44' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='44;48;44' dur='7.2s' begin='2.3s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='356;352;356' dur='7.2s' begin='2.3s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='410' y='347' width='26' height='53' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='53;53;53' dur='5.4s' begin='2.3s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='347;347;347' dur='5.4s' begin='2.3s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='460' y='370' width='26' height='30' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='30;77;30' dur='5.4s' begin='2.8s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='370;323;370' dur='5.4s' begin='2.8s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='510' y='346' width='26' height='54' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='54;37;54' dur='7.5s' begin='2.0s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='346;363;346' dur='7.5s' begin='2.0s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='560' y='348' width='26' height='52' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='52;84;52' dur='8.1s' begin='1.9s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='348;316;348' dur='8.1s' begin='1.9s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='610' y='353' width='26' height='47' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='47;76;47' dur='6.2s' begin='3.2s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='353;324;353' dur='6.2s' begin='3.2s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='660' y='338' width='26' height='62' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='62;61;62' dur='5.3s' begin='1.2s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='338;339;338' dur='5.3s' begin='1.2s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='710' y='351' width='26' height='49' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='49;73;49' dur='7.9s' begin='1.2s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='351;327;351' dur='7.9s' begin='1.2s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='760' y='378' width='26' height='22' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='22;45;22' dur='7.0s' begin='0.7s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='378;355;378' dur='7.0s' begin='0.7s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='810' y='361' width='26' height='39' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='39;49;39' dur='8.7s' begin='1.7s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='361;351;361' dur='8.7s' begin='1.7s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='860' y='340' width='26' height='60' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='60;39;60' dur='8.1s' begin='2.3s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='340;361;340' dur='8.1s' begin='2.3s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='910' y='330' width='26' height='70' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='70;70;70' dur='6.4s' begin='1.4s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='330;330;330' dur='6.4s' begin='1.4s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='960' y='351' width='26' height='49' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='49;88;49' dur='5.3s' begin='0.4s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='351;312;351' dur='5.3s' begin='0.4s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='1010' y='365' width='26' height='35' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='35;90;35' dur='7.8s' begin='0.3s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='365;310;365' dur='7.8s' begin='0.3s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='1060' y='336' width='26' height='64' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='64;69;64' dur='7.6s' begin='4.0s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='336;331;336' dur='7.6s' begin='4.0s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='1110' y='330' width='26' height='70' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='70;87;70' dur='6.1s' begin='1.5s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='330;313;330' dur='6.1s' begin='1.5s' repeatCount='indefinite'/%3E%3C/rect%3E%3Crect x='1160' y='340' width='26' height='60' fill='%233fcf9b' fill-opacity='.07'%3E%3Canimate attributeName='height' values='60;74;60' dur='5.1s' begin='1.8s' repeatCount='indefinite'/%3E%3Canimate attributeName='y' values='340;326;340' dur='5.1s' begin='1.8s' repeatCount='indefinite'/%3E%3C/rect%3E%3Cpath d='M0 340 C100 330 150 300 240 305 S380 270 470 250 S600 255 690 215 S820 190 900 150 S1050 120 1200 60 L1200 400 L0 400 Z' fill='%23e6c36a' fill-opacity='0'%3E%3Canimate attributeName='fill-opacity' values='0;.06;.06;0' keyTimes='0;.5;.88;1' dur='12s' repeatCount='indefinite'/%3E%3C/path%3E%3Cpath d='M0 372 C140 360 220 352 330 340 S560 330 680 300 S900 270 1020 240 S1130 215 1200 190' pathLength='1' fill='none' stroke='%233fcf9b' stroke-width='1.2' stroke-dasharray='1' stroke-dashoffset='1' stroke-opacity='0'%3E%3Canimate attributeName='stroke-dashoffset' values='1;0;0' keyTimes='0;.55;1' dur='12s' begin='1s' repeatCount='indefinite'/%3E%3Canimate attributeName='stroke-opacity' values='0;.3;.3;0' keyTimes='0;.05;.88;1' dur='12s' begin='1s' repeatCount='indefinite'/%3E%3C/path%3E%3Cpath d='M0 340 C100 330 150 300 240 305 S380 270 470 250 S600 255 690 215 S820 190 900 150 S1050 120 1200 60' pathLength='1' fill='none' stroke='%23e6c36a' stroke-width='1.6' stroke-dasharray='1' stroke-dashoffset='1' stroke-opacity='0'%3E%3Canimate attributeName='stroke-dashoffset' values='1;0;0' keyTimes='0;.5;1' dur='12s' repeatCount='indefinite'/%3E%3Canimate attributeName='stroke-opacity' values='0;.55;.55;0' keyTimes='0;.04;.88;1' dur='12s' repeatCount='indefinite'/%3E%3C/path%3E%3Cg%3E%3Ccircle r='3.2' fill='%23e6c36a'/%3E%3Ccircle r='5' fill='none' stroke='%23e6c36a' stroke-width='1'%3E%3Canimate attributeName='r' values='5;16' dur='2s' repeatCount='indefinite'/%3E%3Canimate attributeName='stroke-opacity' values='.6;0' dur='2s' repeatCount='indefinite'/%3E%3C/circle%3E%3CanimateMotion path='M0 340 C100 330 150 300 240 305 S380 270 470 250 S600 255 690 215 S820 190 900 150 S1050 120 1200 60' keyPoints='0;1;1' keyTimes='0;.5;1' calcMode='linear' dur='12s' repeatCount='indefinite'/%3E%3Canimate attributeName='opacity' values='0;1;1;0' keyTimes='0;.03;.88;1' dur='12s' repeatCount='indefinite'/%3E%3C/g%3E%3C/svg%3E");
+
+  /* Static version, used when reduced motion is requested */
+  --growth-line-static: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400' preserveAspectRatio='xMidYMax slice'%3E%3Crect x='10' y='372' width='26' height='28' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='60' y='364' width='26' height='36' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='110' y='351' width='26' height='49' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='160' y='365' width='26' height='35' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='210' y='365' width='26' height='35' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='260' y='358' width='26' height='42' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='310' y='368' width='26' height='32' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='360' y='371' width='26' height='29' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='410' y='348' width='26' height='52' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='460' y='374' width='26' height='26' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='510' y='335' width='26' height='65' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='560' y='339' width='26' height='61' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='610' y='352' width='26' height='48' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='660' y='369' width='26' height='31' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='710' y='379' width='26' height='21' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='760' y='376' width='26' height='24' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='810' y='369' width='26' height='31' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='860' y='360' width='26' height='40' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='910' y='351' width='26' height='49' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='960' y='373' width='26' height='27' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='1010' y='352' width='26' height='48' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='1060' y='349' width='26' height='51' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='1110' y='381' width='26' height='19' fill='%233fcf9b' fill-opacity='.07'/%3E%3Crect x='1160' y='377' width='26' height='23' fill='%233fcf9b' fill-opacity='.07'/%3E%3Cpath d='M0 340 C100 330 150 300 240 305 S380 270 470 250 S600 255 690 215 S820 190 900 150 S1050 120 1200 60 L1200 400 L0 400 Z' fill='%23e6c36a' fill-opacity='.05'/%3E%3Cpath d='M0 340 C100 330 150 300 240 305 S380 270 470 250 S600 255 690 215 S820 190 900 150 S1050 120 1200 60' fill='none' stroke='%23e6c36a' stroke-opacity='.45' stroke-width='1.6'/%3E%3Cpath d='M0 372 C140 360 220 352 330 340 S560 330 680 300 S900 270 1020 240 S1130 215 1200 190' fill='none' stroke='%233fcf9b' stroke-opacity='.25' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+
+  scrollbar-width: thin;
+  scrollbar-color: #2a5e4c var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #2a5e4c;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  font-family: 'Quicksand', sans-serif;
+
+  color: #e3ece7;
+
+  overflow-x: hidden;
+
+  cursor: var(--cursor-main), auto;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(63, 207, 155, 0.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 88% 85%,
+      rgba(230, 195, 106, 0.09),
+      transparent 30%
+    ),
+    linear-gradient(
+      160deg,
+      #060d0b,
+      #0b1713,
+      #0e1c17,
+      #08110e
+    );
+
+  background-size:
+    160% 160%,
+    160% 160%,
+    240% 240%;
+
+  animation: universeMove 28s ease infinite;
+}
+
+
+/* =========================================================
+   FINANCE BACKGROUND  (html pseudo-elements)
+========================================================= */
+
+/* Fine chart-paper grid, drifting slowly, fading out toward the edges */
+html::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+
+  background-size: 56px 56px;
+
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 10%, transparent 75%);
+          mask-image: radial-gradient(ellipse at 50% 35%, #000 10%, transparent 75%);
+
+  animation:
+    gridDrift 24s linear infinite;
+}
+
+
+/* Animated growth chart: the line draws itself with a glowing marker,
+   holds, fades and starts again; faint volume bars rise and fall.
+   (The animation lives inside the SVG itself.) */
+html::after {
+  content: "";
+
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 60vh;
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  background-image: var(--growth-line);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* =========================================================
+   SOFT ATMOSPHERE
+========================================================= */
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  width: 42rem;
+  height: 42rem;
+
+  left: -15rem;
+  top: -16rem;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(63, 207, 155, 0.1),
+      rgba(63, 207, 155, 0.03) 40%,
+      transparent 70%
+    );
+
+  filter: blur(24px);
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  animation:
+    orbOne 24s ease-in-out infinite alternate;
+}
+
+
+body::after {
+  content: "";
+
+  position: fixed;
+
+  width: 36rem;
+  height: 36rem;
+
+  right: -12rem;
+  bottom: -16rem;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(230, 195, 106, 0.08),
+      rgba(230, 195, 106, 0.02) 40%,
+      transparent 70%
+    );
+
+  filter: blur(28px);
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  animation:
+    orbTwo 28s ease-in-out infinite alternate;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#header {
+  text-align: center;
+
+  margin: 3.5rem auto 2.5rem;
+
+  position: relative;
+
+  animation:
+    headerEnter 1.2s cubic-bezier(.16, 1, .3, 1);
+}
+
+
+/* Thin gold ring that gently pulses behind the logo */
+#header::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: -.6rem;
+
+  width: 7rem;
+  height: 7rem;
+
+  margin-left: -3.5rem;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(230, 195, 106, .35);
+
+  pointer-events: none;
+
+  z-index: -1;
+
+  animation:
+    ringPulse 4.5s ease-in-out infinite;
+}
+
+
+#header img {
+  width: 5.4rem;
+  height: 5.4rem;
+
+  object-fit: contain;
+
+  background-color: transparent;
+
+  filter:
+    drop-shadow(0 0 6px rgba(230, 195, 106, 0.35))
+    drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+
+  animation:
+    logoFloat 5s ease-in-out infinite;
+
+  transition:
+    transform .5s cubic-bezier(.16, 1, .3, 1),
+    filter .5s ease;
+
+  cursor: var(--cursor-hover), pointer;
+}
+
+
+#header img:hover {
+  transform:
+    translateY(-6px)
+    scale(1.08);
+
+  filter:
+    drop-shadow(0 0 12px rgba(230, 195, 106, 0.6))
+    drop-shadow(0 16px 28px rgba(0, 0, 0, 0.6));
+}
+
+
+#header h1 {
+  margin: 1rem 0 0;
+
+  font-size: 2.1rem;
+
+  font-weight: 700;
+
+  letter-spacing: .05em;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #f1dfae,
+      #ffffff,
+      #bfeedd,
+      #ffffff
+    );
+
+  background-size: 300% auto;
+
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation:
+    titleFlow 9s linear infinite;
+}
+
+
+/* =========================================================
+   USER INPUT - GLASS CARD
+========================================================= */
+
+#user-input {
+  position: relative;
+
+  max-width: 32rem;
+
+  margin: 2rem auto;
+
+  padding: 1.6rem;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(230, 195, 106, 0.22);
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 56, 46, 0.78),
+      rgba(13, 38, 31, 0.72)
+    );
+
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  animation:
+    cardEnter 1s cubic-bezier(.16, 1, .3, 1);
+
+  transition:
+    transform .5s cubic-bezier(.16, 1, .3, 1),
+    box-shadow .5s ease,
+    border-color .5s ease;
+}
+
+
+#user-input:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(230, 195, 106, 0.45);
+
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(230, 195, 106, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+
+/* Slow gold hairline sweeping along the top edge */
+
+#user-input::before {
+  content: "";
+
+  position: absolute;
+
+  width: 60%;
+  height: 1px;
+
+  left: 0;
+  top: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(230, 195, 106, 0.9),
+      transparent
+    );
+
+  animation:
+    shine 6s ease-in-out infinite;
+}
+
+
+/* Faint rupee watermark - a quiet nod to the currency */
+
+#user-input::after {
+  content: "\20B9";
+
+  position: absolute;
+
+  right: 1.2rem;
+  bottom: -1rem;
+
+  font-family: 'Quicksand', sans-serif;
+  font-size: 6.5rem;
+  font-weight: 700;
+  line-height: 1;
+
+  color: rgba(230, 195, 106, .06);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group {
+  display: flex;
+
+  justify-content: space-evenly;
+
+  gap: 1.5rem;
+}
+
+
+.input-group + .input-group {
+  margin-top: 1.35rem;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+#user-input label {
+  display: block;
+
+  margin-bottom: .4rem;
+
+  font-family:
+    'Roboto Condensed',
+    sans-serif;
+
+  font-size: .65rem;
+
+  font-weight: 700;
+
+  letter-spacing: .1em;
+
+  text-transform: uppercase;
+
+  color: #cfe3da;
+
+  transition:
+    color .3s ease;
+}
+
+
+.input-group:focus-within label {
+  color: var(--gold);
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+#user-input input {
+  width: 100%;
+
+  padding: .72rem .85rem;
+
+  border: 1px solid rgba(150, 200, 183, .35);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background:
+    rgba(255, 255, 255, .045);
+
+  color: #f2fbf7;
+
+  font-family:
+    'Quicksand',
+    sans-serif;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, .18);
+
+  cursor: text;
+
+  transition:
+    transform .3s cubic-bezier(.16, 1, .3, 1),
+    border-color .3s ease,
+    background .3s ease,
+    box-shadow .3s ease;
+}
+
+
+#user-input input:hover {
+  border-color:
+    rgba(190, 232, 215, .7);
+
+  background:
+    rgba(255, 255, 255, .075);
+}
+
+
+#user-input input:focus {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    var(--gold);
+
+  background:
+    rgba(255, 255, 255, .09);
+
+  box-shadow:
+    0 0 0 3px rgba(230, 195, 106, .12),
+    0 10px 26px rgba(0, 0, 0, .25);
+}
+
+
+#user-input input::selection {
+  background: var(--gold);
+
+  color: var(--ink);
+}
+
+
+/* =========================================================
+   RESULT TABLE
+========================================================= */
+
+#result {
+  width: 100%;
+
+  max-width: 55rem;
+
+  margin: 3.5rem auto;
+
+  padding: 1rem;
+
+  table-layout: fixed;
+
+  border-spacing: 0 .45rem;
+
+  text-align: right;
+
+  animation:
+    resultEnter 1.2s cubic-bezier(.16, 1, .3, 1);
+}
+
+
+#result thead {
+  font-size: .75rem;
+
+  font-weight: 700;
+
+  letter-spacing: .06em;
+
+  color: var(--gold);
+}
+
+
+#result th {
+  padding: .8rem .7rem;
+
+  border-bottom:
+    1px solid rgba(230, 195, 106, .25);
+
+  transition:
+    color .3s ease;
+}
+
+
+#result th:hover {
+  color:
+    #f6e3ab;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+#result tbody {
+  font-family:
+    'Roboto Condensed',
+    sans-serif;
+
+  font-size: .9rem;
+
+  color: #c4dcd3;
+}
+
+
+#result tbody tr {
+  opacity: 0;
+
+  cursor: var(--cursor-hover), pointer;
+
+  animation:
+    rowEnter .7s cubic-bezier(.16, 1, .3, 1) forwards;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+
+/* Stagger animation */
+
+#result tbody tr:nth-child(1) {
+  animation-delay: .05s;
+}
+
+#result tbody tr:nth-child(2) {
+  animation-delay: .12s;
+}
+
+#result tbody tr:nth-child(3) {
+  animation-delay: .19s;
+}
+
+#result tbody tr:nth-child(4) {
+  animation-delay: .26s;
+}
+
+#result tbody tr:nth-child(5) {
+  animation-delay: .33s;
+}
+
+#result tbody tr:nth-child(6) {
+  animation-delay: .40s;
+}
+
+#result tbody tr:nth-child(7) {
+  animation-delay: .47s;
+}
+
+#result tbody tr:nth-child(8) {
+  animation-delay: .54s;
+}
+
+#result tbody tr:nth-child(9) {
+  animation-delay: .61s;
+}
+
+#result tbody tr:nth-child(10) {
+  animation-delay: .68s;
+}
+
+
+#result tbody tr:hover {
+  transform:
+    translateX(4px);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(230, 195, 106, .08),
+      transparent
+    );
+}
+
+
+#result td {
+  padding: .8rem .7rem;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, .06);
+
+  transition:
+    color .3s ease;
+}
+
+
+#result tbody tr:hover td {
+  color: #ffffff;
+}
+
+
+#result tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.center {
+  text-align: center;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes universeMove {
+
+  0% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 50%;
+  }
+
+  50% {
+    background-position:
+      100% 40%,
+      0% 60%,
+      100% 50%;
+  }
+
+  100% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 50%;
+  }
+}
+
+
+@keyframes orbOne {
+
+  0% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  100% {
+    transform:
+      translate(12rem, 18rem)
+      scale(1.1);
+  }
+}
+
+
+@keyframes orbTwo {
+
+  0% {
+    transform:
+      translate(0, 0)
+      scale(1);
+  }
+
+  100% {
+    transform:
+      translate(-16rem, -8rem)
+      scale(1.12);
+  }
+}
+
+
+/* grid glides diagonally by exactly one cell, so the loop is seamless */
+@keyframes gridDrift {
+
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 56px 56px, 56px 56px;
+  }
+}
+
+
+@keyframes ringPulse {
+
+  0%,
+  100% {
+    opacity: .25;
+    scale: .96;
+  }
+
+  50% {
+    opacity: .7;
+    scale: 1.08;
+  }
+}
+
+
+@keyframes headerEnter {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(-30px)
+      scale(.92);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* individual property so :hover transform still works */
+@keyframes logoFloat {
+
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -7px;
+  }
+}
+
+
+@keyframes titleFlow {
+
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 300% center;
+  }
+}
+
+
+@keyframes cardEnter {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(40px)
+      scale(.96);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+@keyframes shine {
+
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(170%);
+    opacity: 0;
+  }
+}
+
+
+@keyframes resultEnter {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(36px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* individual properties so the row hover transform still works */
+@keyframes rowEnter {
+
+  0% {
+    opacity: 0;
+
+    translate: 0 14px;
+  }
+
+  100% {
+    opacity: 1;
+
+    translate: 0 0;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  #header {
+    margin:
+      2.5rem auto 2rem;
+  }
+
+  #header img {
+    width: 4.6rem;
+    height: 4.6rem;
+  }
+
+  #header::before {
+    width: 6rem;
+    height: 6rem;
+    margin-left: -3rem;
+  }
+
+  #header h1 {
+    font-size: 1.7rem;
+  }
+
+  #user-input {
+    width:
+      calc(100% - 2rem);
+
+    padding: 1.25rem;
+  }
+
+  .input-group {
+    gap: .8rem;
+  }
+
+  #result {
+    width:
+      calc(100% - 1rem);
+
+    padding: .5rem;
+
+    border-spacing:
+      0 .2rem;
+  }
+
+  #result th,
+  #result td {
+    padding:
+      .5rem .3rem;
+
+    font-size: .75rem;
+  }
+
+  html::before {
+    background-size: 40px 40px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .input-group {
+    flex-direction: column;
+
+    gap: .8rem;
+  }
+
+  #header h1 {
+    font-size: 1.4rem;
+  }
+
+  #result {
+    font-size: .7rem;
+  }
+
+  #result th,
+  #result td {
+    padding:
+      .45rem .2rem;
+  }
+}
+
+
+@media (hover: none) {
+
+  #result tbody tr:hover {
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    scroll-behavior:
+      auto !important;
+
+    transition-duration:
+      .01ms !important;
+  }
+
+  /* chart stays, but without the moving parts */
+  html::after {
+    background-image: var(--growth-line-static);
+  }
+
+  html::before {
+    animation: none;
+  }
+}
